@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Code/UIFlow/Editor/Resources/UIFlow/LayoutViewModelSelectorStyle.uss?fileID=7433441132597879392&amp;guid=5075ed0583b97a349bb4065a7a443249&amp;type=3#LayoutViewModelSelectorStyle" />
+    <ui:VisualElement style="flex-grow: 0; flex-direction: row; align-items: center;">
+        <ui:VisualElement style="flex-grow: 1; border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; background-color: rgb(40, 40, 40); border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-left-color: rgb(33, 33, 33); border-right-color: rgb(33, 33, 33); border-top-color: rgb(33, 33, 33); border-bottom-color: rgb(33, 33, 33); max-height: 18px;">
+            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="name-label" style="flex-shrink: 1; flex-grow: 1; -unity-text-align: middle-left; padding-left: 4px;" />
+        </ui:VisualElement>
+        <ui:Button display-tooltip-when-elided="true" name="select-button" class="select-button" style="height: 24px; background-image: resource(&apos;d_Toolbar Plus More@2x&apos;); width: 24px; background-color: rgba(88, 88, 88, 0); border-left-color: rgba(255, 255, 255, 0); border-right-color: rgba(255, 255, 255, 0); border-top-color: rgba(255, 255, 255, 0); border-bottom-color: rgba(255, 255, 255, 0); border-top-width: 0; border-right-width: 0; border-bottom-width: 0; border-left-width: 0; border-top-left-radius: 0; border-top-right-radius: 0; border-bottom-right-radius: 0; border-bottom-left-radius: 0;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="container" style="flex-grow: 1; padding-left: 15px;" />
+</ui:UXML>

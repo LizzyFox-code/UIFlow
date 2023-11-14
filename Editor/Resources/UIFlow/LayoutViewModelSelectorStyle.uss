@@ -1,0 +1,7 @@
+.select-button {
+    -unity-background-image-tint-color: rgb(171, 171, 171);
+}
+
+.select-button:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}

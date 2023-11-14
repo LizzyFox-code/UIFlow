@@ -1,0 +1,16 @@
+{
+    "name": "UIFlow.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:899ebf5c138a7e1459bd0bb08e309740"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,0 +1,38 @@
+<UserControl x:Class="UIFlow.Runtime.Views.UIContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             xmlns:layouts="clr-namespace:UIFlow.Runtime.Layouts"
+             d:DesignWidth="1920" d:DesignHeight="1080">
+    <UserControl.Resources>
+        <layouts:UILayoutMaskToVisibilityConverter x:Key="UILayoutMaskToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid x:Name="LayoutRoot">
+        <ItemsControl ItemsSource="{Binding Layouts}">
+            <ItemsControl.ItemContainerStyle>
+                <Style TargetType="ContentPresenter">
+                    <Setter Property="Visibility">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource UILayoutMaskToVisibilityConverter}">
+                                <Binding Path="DataContext.LayoutMask" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=UserControl}" Mode="OneWay"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Mode="OneWay"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ItemsControl.ItemContainerStyle>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <ContentControl Content="{Binding}" Panel.ZIndex="{Binding Priority}"/>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>

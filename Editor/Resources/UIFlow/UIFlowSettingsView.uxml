@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <Style src="project://database/Assets/Code/UIFlow/Editor/Resources/UIFlow/UIFlowSettingsStyle.uss?fileID=7433441132597879392&amp;guid=10f074eb5f4efb348b7d017924804639&amp;type=3#UIFlowSettingsStyle" />
+    <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden">
+        <ui:GroupBox text="General">
+            <uie:PropertyField binding-path="m_ViewContainer" label="View Container" name="view-container-property" />
+            <uie:PropertyField binding-path="m_XamlContainer" label="Xaml Container" name="xaml-container-property" />
+        </ui:GroupBox>
+        <ui:Foldout text="Default Layouts" value="false">
+            <ui:ListView binding-path="m_DefaultLayouts" virtualization-method="DynamicHeight" show-bound-collection-size="false" selection-type="None" show-alternating-row-backgrounds="All" show-border="false" name="default-layouts-list-view" />
+        </ui:Foldout>
+        <ui:Foldout text="Layouts" style="-unity-font-style: normal;">
+            <ui:ListView binding-path="m_Layouts" virtualization-method="DynamicHeight" show-bound-collection-size="false" selection-type="Single" show-alternating-row-backgrounds="All" show-border="false" name="layouts-list-view" show-add-remove-footer="true" />
+        </ui:Foldout>
+        <ui:Foldout text="Relationship Matrix" style="-unity-font-style: normal;">
+            <uie:PropertyField binding-path="m_RelationshipSettings" />
+        </ui:Foldout>
+    </ui:ScrollView>
+</ui:UXML>
