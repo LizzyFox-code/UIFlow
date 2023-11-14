@@ -2,7 +2,7 @@
     "name": "UIFlow.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:1296b5928b08cfd47961608066692c52"
+        "GUID:563e1a9e3b9a2e34db2c93e4d7a17f75"
     ],
     "includePlatforms": [
         "Editor"
