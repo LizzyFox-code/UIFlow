@@ -56,9 +56,9 @@ namespace UIFlow.Runtime
                     continue;
                 
                 // preload layout view type
-                var viewType = layoutData.Xaml.Load().GetType();
+                var xaml = layoutData.Xaml.Load();
                 var mask = relationshipSettings.GetMask(i);
-                uiManager.RegisterLayout(layoutData.ViewModel, viewType, layoutData.Priority, mask, layoutData.Name);
+                uiManager.RegisterLayout(xaml, layoutData.ViewModel, layoutData.Priority, mask, layoutData.Name);
             }
         }
     }

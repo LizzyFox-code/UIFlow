@@ -1,7 +1,7 @@
 namespace UIFlow.Runtime
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
+	using System.Collections.Generic;
     using Layouts;
     using Layouts.ViewModels;
     using Noesis;
@@ -18,6 +18,8 @@ namespace UIFlow.Runtime
 
         private readonly LayoutTable m_LayoutTable;
         private readonly LayoutRelationshipTable m_RelationshipTable;
+		
+		private readonly List<object> m_LoadedXamls;
 
         public UIManager([NotNull]NoesisView noesisView, [NotNull]IUIContainerViewModel viewModel, [NotNull]LayoutTable layoutTable, [NotNull]LayoutRelationshipTable relationshipTable)
         {
@@ -29,6 +31,8 @@ namespace UIFlow.Runtime
             m_ViewModel = viewModel;
             m_LayoutTable = layoutTable;
             m_RelationshipTable = relationshipTable;
+			
+			m_LoadedXamls = new List<object>();
         }
         
         public UILayoutProxy FindLayout(in UILayoutId layoutId)
@@ -36,11 +40,14 @@ namespace UIFlow.Runtime
             return m_LayoutTable.FindLayout(layoutId);
         }
         
-        public UILayoutId RegisterLayout([NotNull]ILayoutViewModel viewModel, [NotNull]Type viewType, int priority, in UILayoutMask mask, [NotNull]string name)
+        public UILayoutId RegisterLayout([NotNull]object xaml, [NotNull]ILayoutViewModel viewModel, int priority, in UILayoutMask mask, [NotNull]string name)
         {
             var layoutId = m_LayoutTable.RegisterLayout(viewModel, name);
             if (!layoutId.IsValid)
                 return layoutId;
+			
+			var viewType = xaml.GetType();
+			m_LoadedXamls.Insert(layoutId, xaml);
             
             viewModel.Id = layoutId;
             viewModel.Priority = priority;
