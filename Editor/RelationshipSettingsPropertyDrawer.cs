@@ -94,15 +94,7 @@ namespace UIFlow.Editor
             if(m_SettingsAsset != null)
                 return;
 
-            var assetGuid = AssetDatabase.FindAssets($"t:{nameof(UIFlowSettingsAsset)}").FirstOrDefault();
-            if(string.IsNullOrEmpty(assetGuid))
-                return;
-                
-            var assetPath = AssetDatabase.GUIDToAssetPath(assetGuid);
-            if(string.IsNullOrEmpty(assetPath))
-                return;
-                
-            m_SettingsAsset = AssetDatabase.LoadAssetAtPath<UIFlowSettingsAsset>(assetPath);
+            m_SettingsAsset = UIFlowSettingsAsset.GetAsset();
         }
     }
 }
