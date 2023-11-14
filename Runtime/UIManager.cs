@@ -65,6 +65,8 @@ namespace UIFlow.Runtime
         {
             if (!m_LayoutTable.TryUnregisterLayout(layoutId, out var layoutProxy))
                 return;
+			
+			m_LoadedXamls.RemoveAt(layoutId);
             
             m_ViewModel.RemoveLayout(layoutProxy.ViewModel);
             m_View.Resources.Remove(layoutProxy.ViewModelType);

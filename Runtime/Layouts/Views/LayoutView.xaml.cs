@@ -27,7 +27,7 @@ namespace UIFlow.Runtime.Layouts.Views
 #if NOESIS
         private void InitializeComponent()
         {
-            NoesisUnity.LoadComponent(this);
+            NoesisUnity.LoadComponent(this, "Packages/com.lizzyfox-code.noesis-ui-flow/Runtime/Layouts/Views/LayoutView.xaml");
         }
 
         public override void OnApplyTemplate()
