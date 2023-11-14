@@ -1,7 +1,7 @@
 {
   "name": "com.lizzyfox-code.noesis-ui-flow",
   "version": "1.0.0",
-  "displayName": "Unity-smmalloc",
+  "displayName": "Noesis UI Flow",
   "description": "A UI Flow based on Noesis framework.",
   "unity": "2023.1",
   "unityRelease": "13f1",
