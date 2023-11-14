@@ -12,8 +12,8 @@ namespace UIFlow.Runtime
 #if UNITY_EDITOR
         private static NoesisXaml m_DefaultXaml;
 
-        private const string DefaultContainerXamlPath = "Assets/Code/UIFlow/Runtime/Views/UIContainer.xaml";
-        private const string DefaultLayoutXamlPath = "Assets/Code/UIFlow/Runtime/Layouts/Views/LayoutView.xaml";
+        private const string DefaultContainerXamlPath = "Packages/com.lizzyfox-code.noesis-ui-flow/Runtime/Views/UIContainer.xaml";
+        private const string DefaultLayoutXamlPath = "Packages/com.lizzyfox-code.noesis-ui-flow/Runtime/Layouts/Views/LayoutView.xaml";
 #endif
 
         [SerializeField]
