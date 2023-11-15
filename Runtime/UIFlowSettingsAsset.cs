@@ -9,6 +9,8 @@ namespace UIFlow.Runtime
 
     internal sealed class UIFlowSettingsAsset : ScriptableObject
     {
+        private static UIFlowSettingsAsset m_SettingsAsset;
+        
 #if UNITY_EDITOR
         private static NoesisXaml m_DefaultXaml;
 
@@ -45,24 +47,27 @@ namespace UIFlow.Runtime
 
         public static UIFlowSettingsAsset GetAsset()
         {
+            if (m_SettingsAsset == null)
+            {
 #if UNITY_EDITOR
-            var assetPath = UnityEditor.AssetDatabase.FindAssets($"t:{nameof(UIFlowSettingsAsset)}")
-                .Select(UnityEditor.AssetDatabase.GUIDToAssetPath).FirstOrDefault();
+                var assetPath = UnityEditor.AssetDatabase.FindAssets($"t:{nameof(UIFlowSettingsAsset)}")
+                    .Select(UnityEditor.AssetDatabase.GUIDToAssetPath).FirstOrDefault();
 
-            var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<UIFlowSettingsAsset>(assetPath);
-            if (asset == null)
-                asset = CreateSettingsAsset();
-
-            return asset;
+                m_SettingsAsset = UnityEditor.AssetDatabase.LoadAssetAtPath<UIFlowSettingsAsset>(assetPath);
+                if (m_SettingsAsset == null)
+                    m_SettingsAsset = CreateSettingsAsset();
 #else
-            return Resources.FindObjectsOfTypeAll<UIFlowSettingsAsset>().FirstOrDefault();
+                m_SettingsAsset = Resources.Load<UIFlowSettingsAsset>($"{nameof(UIFlowSettingsAsset)}");
 #endif
+            }
+
+            return m_SettingsAsset;
         }
 
 #if UNITY_EDITOR
         private static UIFlowSettingsAsset CreateSettingsAsset()
         {
-            var filePath = $"Assets/{nameof(UIFlowSettingsAsset)}.asset";
+            var filePath = $"Assets/Resources/{nameof(UIFlowSettingsAsset)}.asset";
             
             var asset = CreateInstance<UIFlowSettingsAsset>();
             asset.name = nameof(UIFlowSettingsAsset);
