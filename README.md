@@ -135,13 +135,13 @@ public partial class CustomLayoutView : UserControl
 
 For XAML:
 ```xaml
-<views:UserControl xmlns:views="clr-namespace:UIFlow.Runtime.Layouts.Views" x:Class="CustomLayoutView"
-                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-                         x:Name="Root" d:DesignWidth="1920" d:DesignHeight="1080">
+<UserControl x:Class="CustomLayoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+             x:Name="Root" d:DesignWidth="1920" d:DesignHeight="1080">
     <Grid>
     </Grid>
-</views:UserControl>
+</UserControl>
 ```
