@@ -47,18 +47,18 @@ namespace UIFlow.Runtime
         {
 #if UNITY_EDITOR
             var assetPath = UnityEditor.AssetDatabase.FindAssets($"t:{nameof(UIFlowSettingsAsset)}")
-                            .Select(x => UnityEditor.AssetDatabase.GUIDToAssetPath(x)).FirstOrDefault();
+                .Select(UnityEditor.AssetDatabase.GUIDToAssetPath).FirstOrDefault();
 
             var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<UIFlowSettingsAsset>(assetPath);
-            if(asset == null)
+            if (asset == null)
                 asset = CreateSettingsAsset();
-			
+
             return asset;
 #else
             return Resources.FindObjectsOfTypeAll<UIFlowSettingsAsset>().FirstOrDefault();
 #endif
         }
-        
+
 #if UNITY_EDITOR
         private static UIFlowSettingsAsset CreateSettingsAsset()
         {

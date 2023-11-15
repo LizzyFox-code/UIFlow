@@ -19,6 +19,10 @@ namespace UIFlow.Runtime
         internal static void Initialize()
         {
             var settingsAsset = UIFlowSettingsAsset.GetAsset();
+#if DEBUG
+            if(settingsAsset == null)
+                throw new InvalidOperationException("UI Flow settings asset not found.");
+#endif
             m_InternalManager = m_Factory.Create(settingsAsset);
         }
         
