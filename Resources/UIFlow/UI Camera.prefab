@@ -43,7 +43,7 @@ Camera:
   m_GameObject: {fileID: 7168115895054092541}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 4
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -155,8 +155,7 @@ MonoBehaviour:
   _enableActions: 0
   _emulateTouch: 0
   _useRealTimeClock: 0
-  _actions: {fileID: -944628639613478452, guid: 9f67088567c2b5040b62090c14e352e3,
-    type: 3}
+  _actions: {fileID: -944628639613478452, guid: 9f67088567c2b5040b62090c14e352e3, type: 3}
   _actionMap: Gamepad
   _actionsRepeatDelay: 0.5
   _actionsRepeatRate: 0.1
