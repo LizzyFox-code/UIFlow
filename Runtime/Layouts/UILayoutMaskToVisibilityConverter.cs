@@ -11,6 +11,7 @@ namespace UIFlow.Runtime.Layouts
     using System;
     using System.Globalization;
 #if UNITY_5_3_OR_NEWER
+    using UnityEngine;
     using ViewModels;
 #endif
     
@@ -19,7 +20,7 @@ namespace UIFlow.Runtime.Layouts
         public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)
         {
 #if UNITY_5_3_OR_NEWER
-            if(value.Length != 2)
+            if(value.Length != 2 || !Application.isPlaying)
                 return Visibility.Collapsed;
             if (!(value[0] is UILayoutMask mask) || !(value[1] is FrameworkElement frameworkElement))
                 return Visibility.Collapsed;

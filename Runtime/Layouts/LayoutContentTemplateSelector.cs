@@ -9,6 +9,7 @@
 namespace UIFlow.Runtime.Layouts
 {
 #if UNITY_5_3_OR_NEWER
+    using UnityEngine;
     using ViewModels;
 #endif
     
@@ -17,7 +18,7 @@ namespace UIFlow.Runtime.Layouts
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
 #if UNITY_5_3_OR_NEWER
-            if (item == null)
+            if (item == null || !Application.isPlaying)
                 return null;
             
             var dataContext = container.GetParentDataContext<ILayoutViewModel>();
