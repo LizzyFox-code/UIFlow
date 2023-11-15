@@ -10,6 +10,8 @@
 
 namespace UIFlow.Runtime.Layouts.Views
 {
+    using UnityEngine;
+
     public abstract class LayoutContentView : UserControl
     {
         public static readonly DependencyProperty ShowStoryboardProperty = DependencyProperty.Register(nameof(ShowStoryboard), 
@@ -38,7 +40,8 @@ namespace UIFlow.Runtime.Layouts.Views
 
         private void OnLoaded(object sender, RoutedEventArgs args)
         {
-            if (DataContext == null || !(DataContext is BaseLayoutContentViewModel contentViewModel))
+            // workaround for Unity Editor
+            if (!Application.isPlaying || DataContext == null || !(DataContext is BaseLayoutContentViewModel contentViewModel))
                 return;
                 
             contentViewModel.ShowCommand.Execute(null);
@@ -46,7 +49,8 @@ namespace UIFlow.Runtime.Layouts.Views
         
         private void OnUnloaded(object sender, RoutedEventArgs args)
         {
-            if (DataContext == null || !(DataContext is BaseLayoutContentViewModel contentViewModel))
+            // workaround for Unity Editor
+            if (!Application.isPlaying || DataContext == null || !(DataContext is BaseLayoutContentViewModel contentViewModel))
                 return;
                 
             contentViewModel.HideCommand.Execute(null);

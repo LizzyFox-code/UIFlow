@@ -1,8 +1,11 @@
 {
   "name": "com.lizzyfox-code.noesis-ui-flow",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "displayName": "Noesis UI Flow",
   "description": "A UI Flow based on Noesis framework.",
+  "_upm": {
+    "supportedPlatforms": ["Desktop", "Mobile", "Web", "Consoles"]
+  },
   "unity": "2023.1",
   "unityRelease": "13f1",
   "license": "MIT",
@@ -17,5 +20,12 @@
   "author": {
     "name": "LizzyFox",
 	"url" : "https://github.com/LizzyFox-code"
-  }
+  },
+  "samples": [
+    {
+      "displayName": "Hello World",
+      "description": "A minimalist Hello World sample created with UI Flow.",
+      "path": "Samples~/HelloWorld"
+    }
+  ]
 }
