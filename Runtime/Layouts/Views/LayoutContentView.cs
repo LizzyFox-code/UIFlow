@@ -32,7 +32,7 @@ namespace UIFlow.Runtime.Layouts.Views
 
         static LayoutContentView()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(LayoutContentView), new FrameworkPropertyMetadata(typeof(LayoutContentView)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LayoutContentView), new FrameworkPropertyMetadata(typeof(UserControl)));
         }
 
 #if NOESIS
