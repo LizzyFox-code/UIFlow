@@ -59,6 +59,8 @@ namespace UIFlow.Runtime.Layouts.Views
                 
             contentViewModel.HideCommand.Execute(null);
         }
+#else
+        public LayoutContentView(){}
 #endif
     }
 }
