@@ -36,7 +36,7 @@ namespace UIFlow.Runtime.Layouts.Views
         }
 
 #if NOESIS
-        protected LayoutContentView()
+        public LayoutContentView()
         {
             Loaded += OnLoaded;
             Unloaded += OnUnloaded;
