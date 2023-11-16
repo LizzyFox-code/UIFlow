@@ -31,6 +31,11 @@ namespace UIFlow.Runtime.Layouts.Views
             set => SetValue(HideStoryboardProperty, value);
         }
 
+        static LayoutContentView()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(LayoutContentView), new FrameworkPropertyMetadata(typeof(LayoutContentView)));
+        }
+
 #if NOESIS
         protected LayoutContentView()
         {

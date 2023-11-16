@@ -18,8 +18,8 @@ namespace UIFlow.Runtime
 
         private readonly LayoutTable m_LayoutTable;
         private readonly LayoutRelationshipTable m_RelationshipTable;
-		
-		private readonly List<object> m_LoadedXamls;
+        
+        private readonly List<object> m_LoadedXamls;
 
         public UIManager([NotNull]NoesisView noesisView, [NotNull]IUIContainerViewModel viewModel, [NotNull]LayoutTable layoutTable, [NotNull]LayoutRelationshipTable relationshipTable)
         {
@@ -47,8 +47,8 @@ namespace UIFlow.Runtime
                 return layoutId;
 			
 			var viewType = xaml.GetType();
-			m_LoadedXamls.Insert(layoutId, xaml);
-            
+            m_LoadedXamls.Insert(layoutId, xaml);
+
             viewModel.Id = layoutId;
             viewModel.Priority = priority;
             
@@ -65,9 +65,9 @@ namespace UIFlow.Runtime
         {
             if (!m_LayoutTable.TryUnregisterLayout(layoutId, out var layoutProxy))
                 return;
-			
-			m_LoadedXamls.RemoveAt(layoutId);
             
+            m_LoadedXamls.RemoveAt(layoutId);
+
             m_ViewModel.RemoveLayout(layoutProxy.ViewModel);
             m_View.Resources.Remove(layoutProxy.ViewModelType);
             
