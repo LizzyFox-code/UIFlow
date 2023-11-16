@@ -2,6 +2,7 @@
     #define NOESIS
     using Noesis;
     using UIFlow.Runtime.Layouts.ViewModels;
+    using UnityEngine;
 #else
     using System.Windows;
     using System.Windows.Controls;
@@ -10,8 +11,6 @@
 
 namespace UIFlow.Runtime.Layouts.Views
 {
-    using UnityEngine;
-
     public abstract class LayoutContentView : UserControl
     {
         public static readonly DependencyProperty ShowStoryboardProperty = DependencyProperty.Register(nameof(ShowStoryboard), 
