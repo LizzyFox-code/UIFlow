@@ -12,7 +12,6 @@ namespace UIFlow.Runtime
     {
         private static readonly UIManagerFactory m_Factory = new UIManagerFactory();
         
-        // ReSharper disable once InconsistentNaming
         internal static UIManager m_InternalManager;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -43,9 +42,21 @@ namespace UIFlow.Runtime
             
             layout.Show<TVm, TV>(viewModel);
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowView([NotNull] BaseLayoutContentViewModel viewModel, [NotNull] Type viewType, in UILayoutId layoutId)
+        {
+            var layout = m_InternalManager.FindLayout(layoutId);
+#if DEBUG
+            if(!layout.IsValid)
+                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
+#endif
+            
+            layout.ShowContent(viewModel, viewType);
+        }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ShowView<T>([NotNull]T viewModel, in UILayoutId layoutId) where T : BaseLayoutContentViewModel
+        public static void ShowView([NotNull]BaseLayoutContentViewModel viewModel, in UILayoutId layoutId)
         {
             var layout = m_InternalManager.FindLayout(layoutId);
 #if DEBUG
@@ -57,8 +68,7 @@ namespace UIFlow.Runtime
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ShowView<T>([NotNull] T viewModelType, [NotNull] Type viewType, in UILayoutId layoutId)
-            where T : BaseLayoutContentViewModel
+        public static void HideView<T>([NotNull] T viewModel, in UILayoutId layoutId, bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
         {
             var layout = m_InternalManager.FindLayout(layoutId);
 #if DEBUG
@@ -66,11 +76,11 @@ namespace UIFlow.Runtime
                 throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
 #endif
             
-            layout.ShowContent(viewModelType, viewType);
+            layout.HideContent(viewModel, unregisterTemplate);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void HideView<T>([NotNull] T viewModel, in UILayoutId layoutId) where T : BaseLayoutContentViewModel
+        public static bool HideView<T>(in UILayoutId layoutId, bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
         {
             var layout = m_InternalManager.FindLayout(layoutId);
 #if DEBUG
@@ -78,19 +88,7 @@ namespace UIFlow.Runtime
                 throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
 #endif
             
-            layout.HideContent(viewModel);
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool HideView<T>(in UILayoutId layoutId) where T : BaseLayoutContentViewModel
-        {
-            var layout = m_InternalManager.FindLayout(layoutId);
-#if DEBUG
-            if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
-            
-            return layout.HideContent<T>();
+            return layout.HideContent<T>(unregisterTemplate);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

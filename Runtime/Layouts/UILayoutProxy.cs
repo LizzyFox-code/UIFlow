@@ -22,7 +22,7 @@ namespace UIFlow.Runtime.Layouts
             Name = name;
         }
 
-        public void ShowContent<T>([NotNull]T item) where T : BaseLayoutContentViewModel
+        public void ShowContent([NotNull]BaseLayoutContentViewModel item)
         {
             ViewModel.Set(item);
         }
@@ -32,17 +32,17 @@ namespace UIFlow.Runtime.Layouts
             ViewModel.Add(item, viewType);
         }
 
-        public void HideContent([NotNull] BaseLayoutContentViewModel item)
+        public void HideContent([NotNull] BaseLayoutContentViewModel item, bool unregisterTemplate = false)
         {
-            ViewModel.Remove(item);
+            ViewModel.Remove(item, unregisterTemplate);
         }
 
-        public bool HideContent<T>() where T : BaseLayoutContentViewModel
+        public bool HideContent<T>(bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
         {
             if(!ViewModel.TryGet<T>(out var item))
                 return false;
             
-            ViewModel.Remove(item);
+            ViewModel.Remove(item, unregisterTemplate);
             return true;
         }
         

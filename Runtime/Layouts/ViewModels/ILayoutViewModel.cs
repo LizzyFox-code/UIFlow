@@ -18,7 +18,7 @@ namespace UIFlow.Runtime.Layouts.ViewModels
         bool TryGet<TVm>(out TVm item) where TVm : BaseLayoutContentViewModel;
         
         void Add([NotNull]BaseLayoutContentViewModel item, [NotNull]Type viewType);
-        void Remove([NotNull]BaseLayoutContentViewModel item);
+        void Remove([NotNull]BaseLayoutContentViewModel item, bool unregisterTemplate = false);
         
         void RegisterView([NotNull]Type viewModelType, [NotNull]Type viewType);
         void UnregisterView([NotNull]Type viewModelType);

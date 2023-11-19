@@ -42,7 +42,7 @@ namespace UIFlow.Runtime.Layouts.ViewModels
         public abstract bool TryGet<TVm>(out TVm item) where TVm : BaseLayoutContentViewModel;
 
         public abstract void Add(BaseLayoutContentViewModel item, Type viewType);
-        public abstract void Remove(BaseLayoutContentViewModel item);
+        public abstract void Remove(BaseLayoutContentViewModel item, bool unregisterTemplate = false);
 
         public void RegisterView(Type viewModelType, Type viewType)
         {

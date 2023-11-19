@@ -3,6 +3,7 @@ namespace UIFlow.Runtime.Layouts.ViewModels
     using System;
     using System.Collections.ObjectModel;
     using System.Linq;
+    using UnityEngine;
 
     public abstract class SingleContentLayoutViewModel : BaseLayoutViewModel
     {
@@ -64,12 +65,15 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             Set(item);
         }
 
-        public override void Remove(BaseLayoutContentViewModel item)
+        public override void Remove(BaseLayoutContentViewModel item, bool unregisterTemplate = false)
         {
             if (m_CurrentItem != item)
             {
-                History.Remove(item);
-                UnregisterView(item.GetType());
+                if(!History.Remove(item))
+                    Debug.Log($"View model with type {item.GetType()} doesn't exist in layout.");
+                
+                if(unregisterTemplate)
+                    UnregisterView(item.GetType());
                 return;
             }
             
