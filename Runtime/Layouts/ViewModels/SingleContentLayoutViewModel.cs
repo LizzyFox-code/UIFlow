@@ -79,7 +79,8 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             
             var previousItem = PopFromHistory();
             Set(previousItem);
-            UnregisterView(item.GetType());
+            if(unregisterTemplate)
+                UnregisterView(item.GetType());
         }
         
         private BaseLayoutContentViewModel PopFromHistory()
