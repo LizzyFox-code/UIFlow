@@ -1,5 +1,5 @@
 ## About
-This is small UI framework based on [Noesis GUI Engine](https://www.noesisengine.com/) for Unity.
+This is small UI framework based on [Noesis GUI Engine](https://www.noesisengine.com/) for Unity (tested in Unity 2023.x).
 
 ## Dependencies
 - Noesis GUI: 3.2.2
