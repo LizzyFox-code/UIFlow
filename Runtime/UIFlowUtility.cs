@@ -57,6 +57,19 @@ namespace UIFlow.Runtime
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowView<T>([NotNull] T viewModelType, [NotNull] Type viewType, in UILayoutId layoutId)
+            where T : BaseLayoutContentViewModel
+        {
+            var layout = m_InternalManager.FindLayout(layoutId);
+#if DEBUG
+            if(!layout.IsValid)
+                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
+#endif
+            
+            layout.ShowContent(viewModelType, viewType);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void HideView<T>([NotNull] T viewModel, in UILayoutId layoutId) where T : BaseLayoutContentViewModel
         {
             var layout = m_InternalManager.FindLayout(layoutId);

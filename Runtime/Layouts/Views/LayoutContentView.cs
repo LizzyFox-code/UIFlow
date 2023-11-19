@@ -11,7 +11,7 @@
 
 namespace UIFlow.Runtime.Layouts.Views
 {
-    public abstract class LayoutContentView : UserControl
+    public class LayoutContentView : UserControl
     {
         public static readonly DependencyProperty ShowStoryboardProperty = DependencyProperty.Register(nameof(ShowStoryboard), 
             typeof(Storyboard), typeof(LayoutContentView), new UIPropertyMetadata());
