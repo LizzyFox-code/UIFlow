@@ -69,8 +69,7 @@ namespace UIFlow.Runtime.Layouts.ViewModels
         {
             if (m_CurrentItem != item)
             {
-                if(!History.Remove(item))
-                    Debug.Log($"View model with type {item.GetType()} doesn't exist in layout.");
+                History.Remove(item);
                 
                 if(unregisterTemplate)
                     UnregisterView(item.GetType());
