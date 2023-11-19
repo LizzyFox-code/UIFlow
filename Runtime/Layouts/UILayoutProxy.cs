@@ -27,12 +27,12 @@ namespace UIFlow.Runtime.Layouts
             ViewModel.Set(item);
         }
 
-        public void ShowContent<T>([NotNull] T item, Type viewType) where T : BaseLayoutContentViewModel
+        public void ShowContent([NotNull] BaseLayoutContentViewModel item, Type viewType)
         {
             ViewModel.Add(item, viewType);
         }
 
-        public void HideContent<T>([NotNull] T item) where T : BaseLayoutContentViewModel
+        public void HideContent([NotNull] BaseLayoutContentViewModel item)
         {
             ViewModel.Remove(item);
         }

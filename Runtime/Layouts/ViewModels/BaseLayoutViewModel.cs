@@ -37,12 +37,12 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             m_Templates = new Dictionary<Type, DataTemplate>();
         }
 
-        public abstract void Set<TVm>(TVm item) where TVm : BaseLayoutContentViewModel;
+        public abstract void Set(BaseLayoutContentViewModel item);
         public abstract TVm Get<TVm>() where TVm : BaseLayoutContentViewModel;
         public abstract bool TryGet<TVm>(out TVm item) where TVm : BaseLayoutContentViewModel;
 
-        public abstract void Add<T>(T item, Type viewType) where T : BaseLayoutContentViewModel;
-        public abstract void Remove<T>(T item) where T : BaseLayoutContentViewModel;
+        public abstract void Add(BaseLayoutContentViewModel item, Type viewType);
+        public abstract void Remove(BaseLayoutContentViewModel item);
 
         public void RegisterView(Type viewModelType, Type viewType)
         {

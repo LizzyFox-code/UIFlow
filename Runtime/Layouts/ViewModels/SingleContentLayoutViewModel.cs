@@ -28,7 +28,7 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             m_History = new ObservableCollection<BaseLayoutContentViewModel>();
         }
         
-        public override void Set<TVm>(TVm item)
+        public override void Set(BaseLayoutContentViewModel item)
         {
             Content = item;
         }
@@ -55,27 +55,27 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             return item != null;
         }
 
-        public override void Add<T>(T item, Type viewType)
+        public override void Add(BaseLayoutContentViewModel item, Type viewType)
         {
             if (m_CurrentItem != null)
                 History.Add(m_CurrentItem);
 
-            RegisterView(typeof(T), viewType);
+            RegisterView(item.GetType(), viewType);
             Set(item);
         }
 
-        public override void Remove<T>(T item)
+        public override void Remove(BaseLayoutContentViewModel item)
         {
             if (m_CurrentItem != item)
             {
                 History.Remove(item);
-                UnregisterView(typeof(T));
+                UnregisterView(item.GetType());
                 return;
             }
             
             var previousItem = PopFromHistory();
             Set(previousItem);
-            UnregisterView(typeof(T));
+            UnregisterView(item.GetType());
         }
         
         private BaseLayoutContentViewModel PopFromHistory()

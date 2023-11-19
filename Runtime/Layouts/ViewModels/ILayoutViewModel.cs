@@ -13,12 +13,12 @@ namespace UIFlow.Runtime.Layouts.ViewModels
         
         BaseLayoutContentViewModel Content { get; set; }
 
-        void Set<TVm>(TVm item) where TVm : BaseLayoutContentViewModel;
+        void Set(BaseLayoutContentViewModel item);
         TVm Get<TVm>() where TVm : BaseLayoutContentViewModel;
         bool TryGet<TVm>(out TVm item) where TVm : BaseLayoutContentViewModel;
         
-        void Add<T>([NotNull]T item, [NotNull]Type viewType) where T : BaseLayoutContentViewModel;
-        void Remove<T>([NotNull]T item) where T : BaseLayoutContentViewModel;
+        void Add([NotNull]BaseLayoutContentViewModel item, [NotNull]Type viewType);
+        void Remove([NotNull]BaseLayoutContentViewModel item);
         
         void RegisterView([NotNull]Type viewModelType, [NotNull]Type viewType);
         void UnregisterView([NotNull]Type viewModelType);
