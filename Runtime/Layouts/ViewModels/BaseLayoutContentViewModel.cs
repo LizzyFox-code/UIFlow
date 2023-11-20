@@ -1,6 +1,5 @@
 namespace UIFlow.Runtime.Layouts.ViewModels
 {
-    using System;
     using System.Windows.Input;
 
     public abstract class BaseLayoutContentViewModel : BaseViewModel
@@ -27,8 +26,8 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 
         public bool IsShowed => m_IsShowed;
         
-        public event Action<BaseLayoutContentViewModel> Showed;
-        public event Action<BaseLayoutContentViewModel> Hidden;
+        public event LayoutContentEventHandler Showed;
+        public event LayoutContentEventHandler Hidden;
 
         protected BaseLayoutContentViewModel()
         {

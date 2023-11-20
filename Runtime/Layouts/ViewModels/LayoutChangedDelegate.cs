@@ -2,5 +2,5 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 {
     using System.Diagnostics.CodeAnalysis;
 
-    public delegate void LayoutChangedDelegate([NotNull]ILayoutViewModel layoutViewModel, BaseLayoutContentViewModel content);
+    public delegate void LayoutChangedDelegate([NotNull]ILayoutViewModel layoutViewModel, BaseLayoutContentViewModel oldContent, BaseLayoutContentViewModel content);
 }

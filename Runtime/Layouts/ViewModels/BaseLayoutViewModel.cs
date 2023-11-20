@@ -68,8 +68,9 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 
         protected void SetContentInternal([NotNull]ref BaseLayoutContentViewModel target, [CanBeNull]BaseLayoutContentViewModel newValue)
         {
+            var oldValue = target;
             SetProperty(ref target, newValue, m_CurrentItemPropertyName);
-            LayoutChanged?.Invoke(this, newValue);
+            LayoutChanged?.Invoke(this, oldValue, newValue);
         }
     }
 }

@@ -1,5 +1,6 @@
 namespace UIFlow.Runtime
 {
+    using System;
     using System.Diagnostics.CodeAnalysis;
 	using System.Collections.Generic;
     using Layouts;
@@ -38,6 +39,16 @@ namespace UIFlow.Runtime
         public UILayoutProxy FindLayout(in UILayoutId layoutId)
         {
             return m_LayoutTable.FindLayout(layoutId);
+        }
+
+        public UILayoutId GetLayoutId([NotNull]Type viewModelType)
+        {
+            return m_LayoutTable.GetLayoutId(viewModelType);
+        }
+
+        public UILayoutId GetLayoutId<T>() where T : ILayoutViewModel
+        {
+            return m_LayoutTable.GetLayoutId(typeof(T));
         }
         
         public UILayoutId RegisterLayout([NotNull]object xaml, [NotNull]ILayoutViewModel viewModel, int priority, in UILayoutMask mask, [NotNull]string name)

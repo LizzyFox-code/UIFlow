@@ -1,6 +1,6 @@
 {
   "name": "com.lizzyfox-code.noesis-ui-flow",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "displayName": "Noesis UI Flow",
   "description": "A UI Flow based on Noesis framework.",
   "_upm": {

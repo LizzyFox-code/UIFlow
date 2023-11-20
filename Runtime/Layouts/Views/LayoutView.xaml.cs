@@ -51,17 +51,17 @@ namespace UIFlow.Runtime.Layouts.Views
             layoutViewModel.LayoutChanged += OnLayoutChanged;
         }
 
-        private void OnLayoutChanged(ILayoutViewModel layoutViewModel, BaseLayoutContentViewModel contentViewModel)
+        private void OnLayoutChanged(ILayoutViewModel layoutViewModel, BaseLayoutContentViewModel oldContent, BaseLayoutContentViewModel newContent)
         {
             var currentContentControl = m_FirstPresenter.HasContent ? m_FirstPresenter : m_SecondPresenter;
-            if (contentViewModel == null)
+            if (newContent == null)
             {
                 HideContentWithAnimation(currentContentControl);
                 return;
             }
 
             var nextContentControl = m_FirstPresenter.HasContent ? m_SecondPresenter : m_FirstPresenter;
-            ShowContentWithAnimation(nextContentControl, contentViewModel);
+            ShowContentWithAnimation(nextContentControl, newContent);
             HideContentWithAnimation(currentContentControl);
         }
 

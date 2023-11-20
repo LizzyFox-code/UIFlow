@@ -32,6 +32,18 @@ namespace UIFlow.Runtime
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UILayoutId GetLayoutId([NotNull]Type viewModelType)
+        {
+            return m_InternalManager.GetLayoutId(viewModelType);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static UILayoutId GetLayoutId<T>() where T : ILayoutViewModel
+        {
+            return m_InternalManager.GetLayoutId<T>();
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ShowView<TVm, TV>([NotNull]TVm viewModel, in UILayoutId layoutId) where TVm : BaseLayoutContentViewModel where TV : LayoutContentView
         {
             var layout = m_InternalManager.FindLayout(layoutId);

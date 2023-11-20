@@ -63,6 +63,13 @@ namespace UIFlow.Runtime.Layouts
             return true;
         }
 
+        public UILayoutId GetLayoutId([NotNull] Type viewModelType)
+        {
+            if(!m_TypeToLayoutIdMap.TryGetValue(viewModelType, out var layoutId))
+                return UILayoutId.Invalid;
+            return layoutId;
+        }
+
         internal bool TryGetLayoutId([NotNull] Type viewModelType, out UILayoutId layoutId)
         {
             return m_TypeToLayoutIdMap.TryGetValue(viewModelType, out layoutId);
