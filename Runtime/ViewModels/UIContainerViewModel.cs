@@ -73,23 +73,43 @@ namespace UIFlow.Runtime.ViewModels
         
         private void OnLayoutChanged(ILayoutViewModel viewModel, BaseLayoutContentViewModel oldContent, BaseLayoutContentViewModel newContent)
         {
-            if (!TryGetHighestPriorityViewModelWithContent(out var highestPriorityViewModel) || !m_LayoutTable.TryGetLayoutId(highestPriorityViewModel.GetType(), out var layoutId))
+            if (!TryGetHighestPriorityViewModelWithContent(out var highestPriorityViewModel) ||
+                 !m_LayoutTable.TryGetLayoutId(highestPriorityViewModel.GetType(), out var layoutId))
             {
-                LayoutMask = UILayoutMask.Zero;
+                if(!TryWaitLastContentHiding(viewModel, oldContent))
+                    LayoutMask = UILayoutMask.Zero;
+                
                 return;
             }
 
-            if (highestPriorityViewModel != viewModel && viewModel.Priority < highestPriorityViewModel.Priority || newContent != null)
+            if (highestPriorityViewModel != viewModel && viewModel.Priority < highestPriorityViewModel.Priority || newContent != null
+            || !TryWaitOldContentHiding(viewModel, oldContent, layoutId))
             {
                 LayoutMask = m_RelationshipTable.GetMask(layoutId);
-                return;
             }
+        }
 
+        private bool TryWaitLastContentHiding(ILayoutViewModel viewModel, BaseLayoutContentViewModel content)
+        {
+            if (content == null || !content.IsShowed || !m_LayoutTable.TryGetLayoutId(viewModel.GetType(), out var layoutId))
+                return false;
+            
+            LayoutMask = m_RelationshipTable.GetMask(layoutId);
+            
+            content.Hidden += Handler;
+            
+            void Handler(BaseLayoutContentViewModel model)
+            {
+                LayoutMask = LayoutMask = UILayoutMask.Zero;
+                content.Hidden -= Handler;
+            }
+            return true;
+        }
+
+        private bool TryWaitOldContentHiding(ILayoutViewModel viewModel, BaseLayoutContentViewModel oldContent, UILayoutId layoutId)
+        {
             if (oldContent == null || !oldContent.IsShowed || !m_LayoutTable.TryGetLayoutId(viewModel.GetType(), out var oldLayoutId))
-            {
-                LayoutMask = m_RelationshipTable.GetMask(layoutId);
-                return;
-            }
+                return false;
 
             LayoutMask = m_RelationshipTable.GetMask(layoutId) | m_RelationshipTable.GetMask(oldLayoutId);
 
@@ -100,6 +120,7 @@ namespace UIFlow.Runtime.ViewModels
                 LayoutMask = m_RelationshipTable.GetMask(layoutId);
                 oldContent.Hidden -= Handler;
             }
+            return true;
         }
 
         private bool TryGetHighestPriorityViewModelWithContent(out ILayoutViewModel viewModel)
