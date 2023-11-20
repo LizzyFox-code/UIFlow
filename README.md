@@ -36,6 +36,12 @@ UIFlowUtility.ShowView<SomeViewModel, SomeView>(viewModel, UILayout.HUD);
 UIFlowUtility.HideView(this, UILayout.HUD); // where this - some view model
 ```
 
+or
+
+```c#
+UIFlowUtility.HideView<ViewModelType>(UILayout.HUD); // where ViewModelType - is view model of showed view
+```
+
 #### Register View Type
 This allow register (warm-up) only view type without view opening.
 ```c#
@@ -144,4 +150,15 @@ For XAML:
     <Grid>
     </Grid>
 </UserControl>
+```
+
+#### Get custom Layout Id
+```c#
+UIFlowUtility.GetLayoutId<CustomLayoutViewModel>(); // where CustomLayoutViewModel is viewModel type of custom layout
+```
+
+or
+
+```c#
+UIFlowUtility.GetLayoutId(typeof(CustomLayoutViewModel)); // where CustomLayoutViewModel is viewModel type of custom layout
 ```
