@@ -1,11 +1,13 @@
 namespace UIFlow.Runtime
 {
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using Layouts;
     using UnityEngine;
     using UnityEngine.Pool;
     using ViewModels;
+    using Object = UnityEngine.Object;
 
     internal sealed class UIManagerFactory
     {
@@ -31,6 +33,8 @@ namespace UIFlow.Runtime
         {
             var xaml = LoadXamlContainer(settingsAsset);
             var view = settingsAsset.ViewContainer;
+            if(view == null)
+                throw new NullReferenceException("UI Flow View Container not found. Please set a NoesisView reference in the Project Settings.");
             
             var instance = Object.Instantiate(view, Vector3.zero, Quaternion.identity);
             Object.DontDestroyOnLoad(instance.gameObject);

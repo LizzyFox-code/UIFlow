@@ -12,9 +12,7 @@ namespace UIFlow.Editor
         {
             var visualTree = Resources.Load<VisualTreeAsset>("UIFlow/UIFlowSettingsView");
             visualTree.CloneTree(rootVisualElement);
-
-            var viewContainerProperty = rootVisualElement.Q<PropertyField>("view-container-property");
-            viewContainerProperty.SetEnabled(false);
+            
             var xamlContainerProperty = rootVisualElement.Q<PropertyField>("xaml-container-property");
             xamlContainerProperty.SetEnabled(false);
 

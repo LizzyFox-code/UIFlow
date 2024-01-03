@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
-    <Style src="project://database/Packages/com.lizzyfox-code.noesis-ui-flow/Editor/Resources/UIFlow/UIFlowSettingsStyle.uss?fileID=7433441132597879392&amp;guid=10f074eb5f4efb348b7d017924804639&amp;type=3#UIFlowSettingsStyle" />
+    <Style src="project://database/Packages/com.lizzyfox-code.noesis-ui-flow/Editor/Resources/UIFlow/UIFlowSettingsStyle.uss?fileID=7433441132597879392&amp;guid=9acc15b934cf02843a60a2058aba22d7&amp;type=3#UIFlowSettingsStyle" />
     <ui:ScrollView scroll-deceleration-rate="0,135" elasticity="0,1" horizontal-scroller-visibility="Hidden">
         <ui:GroupBox text="General">
             <uie:PropertyField binding-path="m_ViewContainer" label="View Container" name="view-container-property" />
