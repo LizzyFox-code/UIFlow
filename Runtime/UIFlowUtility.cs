@@ -14,7 +14,7 @@ namespace UIFlow.Runtime
         
         internal static UIManager m_InternalManager;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         internal static void Initialize()
         {
             var settingsAsset = UIFlowSettingsAsset.GetAsset();
