@@ -10,10 +10,16 @@ namespace UIFlow.Runtime.Layouts
 {
     using System;
     using System.Globalization;
+
 #if UNITY_5_3_OR_NEWER
+    using UnityEngine.Scripting;
     using ViewModels;
-#endif
     
+    [Preserve]
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+#endif
     public sealed class UILayoutMaskToVisibilityConverter : IMultiValueConverter
     {
         public object Convert(object[] value, Type targetType, object parameter, CultureInfo culture)

@@ -12,6 +12,11 @@ namespace UIFlow.Runtime.Layouts.Views
     using ViewModels;
 #endif
 
+#if UNITY_5_3_OR_NEWER
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+#endif
     [TemplatePart(Name = "PART_FirstPresenter", Type = typeof(ContentControl))]
     [TemplatePart(Name = "PART_SecondPresenter", Type = typeof(ContentControl))]
     public partial class LayoutView : UserControl

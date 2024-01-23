@@ -2,6 +2,9 @@ namespace UIFlow.Runtime
 {
     using Noesis;
     
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class DependencyObjectExtensions
     {
         public static T FindVisualChild<T>(this DependencyObject parent) where T : DependencyObject

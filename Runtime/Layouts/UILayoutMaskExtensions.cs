@@ -4,6 +4,9 @@ namespace UIFlow.Runtime.Layouts
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UILayoutMaskExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -17,7 +20,7 @@ namespace UIFlow.Runtime.Layouts
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ToArray(this UILayoutMask layoutMask, [NotNull]bool[] array)
         {
-#if DEBUG
+#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(array.Length != LayoutTable.MaxLayoutCount)
                 throw new InvalidOperationException($"Array must be equal to {LayoutTable.MaxLayoutCount}.");
 #endif

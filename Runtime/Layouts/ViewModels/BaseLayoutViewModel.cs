@@ -2,9 +2,12 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 {
     using System;
     using System.Collections.Generic;
-    using JetBrains.Annotations;
+    using System.Diagnostics.CodeAnalysis;
     using Noesis;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class BaseLayoutViewModel : BaseViewModel, ILayoutViewModel
     {
         private static readonly string m_CurrentItemPropertyName = nameof(Content);
@@ -39,7 +42,8 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 
         public abstract void Set(BaseLayoutContentViewModel item);
         public abstract TVm Get<TVm>() where TVm : BaseLayoutContentViewModel;
-        public abstract bool TryGet<TVm>(out TVm item) where TVm : BaseLayoutContentViewModel;
+        public abstract bool TryGet([NotNull]Type contentType, out BaseLayoutContentViewModel item);
+        public abstract bool Has(Type contentType);
 
         public abstract void Add(BaseLayoutContentViewModel item, Type viewType);
         public abstract void Remove(BaseLayoutContentViewModel item, bool unregisterTemplate = false);
@@ -60,13 +64,10 @@ namespace UIFlow.Runtime.Layouts.ViewModels
         
         public DataTemplate FindTemplate(Type viewModelType)
         {
-            if (m_Templates.ContainsKey(viewModelType))
-                return m_Templates[viewModelType];
-            
-            return null;
+            return m_Templates.GetValueOrDefault(viewModelType);
         }
 
-        protected void SetContentInternal([NotNull]ref BaseLayoutContentViewModel target, [CanBeNull]BaseLayoutContentViewModel newValue)
+        protected void SetContentInternal([NotNull]ref BaseLayoutContentViewModel target, BaseLayoutContentViewModel newValue = null)
         {
             var oldValue = target;
             SetProperty(ref target, newValue, m_CurrentItemPropertyName);

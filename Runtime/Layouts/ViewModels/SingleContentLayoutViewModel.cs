@@ -4,6 +4,9 @@ namespace UIFlow.Runtime.Layouts.ViewModels
     using System.Collections.ObjectModel;
     using System.Linq;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class SingleContentLayoutViewModel : BaseLayoutViewModel
     {
         private static readonly string m_HistoryPropertyName = nameof(History);
@@ -42,17 +45,30 @@ namespace UIFlow.Runtime.Layouts.ViewModels
             return m_History.FirstOrDefault(x => x.GetType() == type) as TVm;
         }
 
-        public override bool TryGet<TVm>(out TVm item)
+        public override bool TryGet(Type contentType, out BaseLayoutContentViewModel item)
         {
-            var type = typeof(TVm);
-            if(m_CurrentItem != null && m_CurrentItem.GetType() == type)
+            if(m_CurrentItem != null && m_CurrentItem.GetType() == contentType)
             {
-                item = m_CurrentItem as TVm;
+                item = m_CurrentItem;
                 return true;
             }
             
-            item = m_History.FirstOrDefault(x => x.GetType() == type) as TVm;
+            item = m_History.FirstOrDefault(x => x.GetType() == contentType);
             return item != null;
+        }
+
+        public override bool Has(Type contentType)
+        {
+            if (m_CurrentItem != null && m_CurrentItem.GetType() == contentType)
+                return true;
+
+            foreach (var viewModel in m_History)
+            {
+                if (viewModel.GetType() == contentType) // no alloc
+                    return true;
+            }
+
+            return false;
         }
 
         public override void Add(BaseLayoutContentViewModel item, Type viewType)

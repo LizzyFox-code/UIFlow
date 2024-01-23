@@ -3,6 +3,9 @@ namespace UIFlow.Runtime
     using System;
     using System.Windows.Input;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class Command : ICommand
     {
         private readonly Func<object, bool> m_CanExecute;

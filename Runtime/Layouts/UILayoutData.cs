@@ -6,6 +6,9 @@ namespace UIFlow.Runtime.Layouts
     using ViewModels;
     
     [Serializable]
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class UILayoutData
     {
         [SerializeField]

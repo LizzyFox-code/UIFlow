@@ -5,6 +5,9 @@ namespace UIFlow.Runtime.Layouts
     using System.Diagnostics.CodeAnalysis;
     using ViewModels;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class LayoutTable
     {
         public const int MaxLayoutCount = 32;
@@ -26,6 +29,18 @@ namespace UIFlow.Runtime.Layouts
                 return UILayoutProxy.Invalid;
             
             return m_RegisteredLayouts[layoutId];
+        }
+
+        public UILayoutProxy FindLayoutWithContentType([NotNull] Type contentType)
+        {
+            for (var i = 0; i < m_RegisteredLayouts.Length; i++)
+            {
+                var layout = m_RegisteredLayouts[i];
+                if (layout.HasContent(contentType))
+                    return layout;
+            }
+            
+            return UILayoutProxy.Invalid;
         }
         
         public UILayoutId RegisterLayout([NotNull] ILayoutViewModel viewModel, [NotNull]string name)
@@ -67,6 +82,7 @@ namespace UIFlow.Runtime.Layouts
         {
             if(!m_TypeToLayoutIdMap.TryGetValue(viewModelType, out var layoutId))
                 return UILayoutId.Invalid;
+            
             return layoutId;
         }
 

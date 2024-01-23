@@ -2,8 +2,12 @@ namespace UIFlow.Runtime.Layouts
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
     using ViewModels;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class UILayoutProxy
     {
         public static readonly UILayoutProxy Invalid = new UILayoutProxy(null, string.Empty);
@@ -37,13 +41,19 @@ namespace UIFlow.Runtime.Layouts
             ViewModel.Remove(item, unregisterTemplate);
         }
 
-        public bool HideContent<T>(bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool HideContent(Type contentType, bool unregisterTemplate = false)
         {
-            if(!ViewModel.TryGet<T>(out var item))
+            if(!ViewModel.TryGet(contentType, out var item))
                 return false;
             
             ViewModel.Remove(item, unregisterTemplate);
             return true;
+        }
+
+        public bool HasContent([NotNull]Type contentType)
+        {
+            return ViewModel.Has(contentType);
         }
         
         public void RegisterContentViewType(Type viewModelType, Type viewType)

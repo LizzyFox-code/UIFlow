@@ -1,5 +1,8 @@
 namespace UIFlow.Runtime.Layouts
 {
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class LayoutRelationshipTable
     {
         private readonly UILayoutMask[] m_Matrix;

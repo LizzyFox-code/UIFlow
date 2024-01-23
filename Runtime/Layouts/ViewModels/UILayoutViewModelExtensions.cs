@@ -4,6 +4,9 @@ namespace UIFlow.Runtime.Layouts.ViewModels
     using System.Runtime.CompilerServices;
     using Noesis;
     
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UILayoutViewModelExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

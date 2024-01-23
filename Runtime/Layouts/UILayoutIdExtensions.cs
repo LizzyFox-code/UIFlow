@@ -8,6 +8,9 @@ namespace UIFlow.Runtime.Layouts
     using ViewModels;
     using Views;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UILayoutIdExtensions
     {
 #if UNITY_EDITOR

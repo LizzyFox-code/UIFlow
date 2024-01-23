@@ -6,6 +6,9 @@ namespace UIFlow.Runtime.ViewModels
     using Layouts;
     using Layouts.ViewModels;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class UIContainerViewModel : BaseViewModel, IUIContainerViewModel
     {
         private static readonly string m_LayoutsPropertyName = nameof(Layouts);

@@ -7,6 +7,9 @@ namespace UIFlow.Runtime
     using Layouts.ViewModels;
     using UnityEngine;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class UIFlowSettingsAsset : ScriptableObject
     {
         private static UIFlowSettingsAsset m_SettingsAsset;

@@ -2,6 +2,9 @@ namespace UIFlow.Runtime.Layouts.ViewModels
 {
     using System.Windows.Input;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public abstract class BaseLayoutContentViewModel : BaseViewModel
     {
         private static readonly string m_ShowCommandPropertyName = nameof(ShowCommand);

@@ -9,6 +9,9 @@ namespace UIFlow.Runtime
     using ViewModels;
     using Object = UnityEngine.Object;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class UIManagerFactory
     {
         public UIManager Create([NotNull] UIFlowSettingsAsset settingsAsset)

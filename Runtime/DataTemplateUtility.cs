@@ -5,6 +5,9 @@ namespace UIFlow.Runtime
     using System.Runtime.CompilerServices;
     using Noesis;
     
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class DataTemplateUtility
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

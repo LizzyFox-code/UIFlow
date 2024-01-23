@@ -8,6 +8,9 @@ namespace UIFlow.Runtime
     using Noesis;
     using ViewModels;
 
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     internal sealed class UIManager
     {
 #pragma warning disable CS0169
@@ -39,6 +42,11 @@ namespace UIFlow.Runtime
         public UILayoutProxy FindLayout(in UILayoutId layoutId)
         {
             return m_LayoutTable.FindLayout(layoutId);
+        }
+
+        public UILayoutProxy FindLayoutWithContentType([NotNull] Type contentViewModelType)
+        {
+            return m_LayoutTable.FindLayoutWithContentType(contentViewModelType);
         }
 
         public UILayoutId GetLayoutId([NotNull]Type viewModelType)

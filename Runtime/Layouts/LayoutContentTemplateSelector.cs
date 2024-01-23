@@ -9,10 +9,15 @@
 namespace UIFlow.Runtime.Layouts
 {
 #if UNITY_5_3_OR_NEWER
+    using UnityEngine.Scripting;
     using UnityEngine;
     using ViewModels;
-#endif
     
+    [Preserve]
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+#endif
     public sealed class LayoutContentTemplateSelector : DataTemplateSelector
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)

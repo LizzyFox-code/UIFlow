@@ -8,6 +8,11 @@
 
 namespace UIFlow.Runtime.Views
 {
+#if UNITY_5_3_OR_NEWER
+    [Il2CppSetOption(Option.NullChecks, false)]
+    [Il2CppSetOption(Option.ArrayBoundsChecks, false)]
+    [Il2CppSetOption(Option.DivideByZeroChecks, false)]
+#endif
     public partial class UIContainer : UserControl
     {
         public UIContainer()
