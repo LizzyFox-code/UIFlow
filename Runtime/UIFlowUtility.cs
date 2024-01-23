@@ -81,6 +81,18 @@ namespace UIFlow.Runtime
             layout.Show<TVm, TV>(viewModel);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowView<TV>([NotNull] BaseLayoutContentViewModel viewModel, in UILayoutId layoutId) where TV : LayoutContentView
+        {
+            var layout = m_InternalManager.FindLayout(layoutId);
+#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
+            if(!layout.IsValid)
+                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
+#endif
+            
+            layout.ShowContent(viewModel, typeof(TV));
+        }
+
         /// <summary>
         /// Shows a view with the given view model and layout ID.
         /// </summary>
