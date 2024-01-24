@@ -1,5 +1,7 @@
 ﻿namespace UIFlow.Runtime.Layouts.ViewModels
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
     using Views;
 
@@ -18,6 +20,30 @@
         public static void Hide(this BaseLayoutContentViewModel viewModel, bool unregisterTemplate = false)
         {
             UIFlowUtility.HideView(viewModel.GetType(), unregisterTemplate);
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowDependency(this BaseLayoutContentViewModel owner, [NotNull]BaseLayoutContentViewModel viewModel)
+        {
+            UIFlowUtility.ShowViewAsDependency(viewModel, owner.GetType());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowDependency(this BaseLayoutContentViewModel owner, [NotNull] BaseLayoutContentViewModel viewModel, [NotNull] Type viewType)
+        {
+            UIFlowUtility.ShowViewAsDependency(viewModel, viewType, owner.GetType());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowDependency<TV>(this BaseLayoutContentViewModel owner, [NotNull] BaseLayoutContentViewModel viewModel) where TV : LayoutContentView
+        {
+            UIFlowUtility.ShowViewAsDependency(viewModel, typeof(TV), owner.GetType());
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowDependency<TVm, TV>(this BaseLayoutContentViewModel owner, [NotNull]TVm viewModel) where TVm : BaseLayoutContentViewModel where TV : LayoutContentView
+        {
+            UIFlowUtility.ShowViewAsDependency(viewModel, typeof(TV), owner.GetType());
         }
     }
 }

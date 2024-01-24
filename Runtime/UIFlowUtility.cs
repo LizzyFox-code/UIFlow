@@ -13,7 +13,7 @@ namespace UIFlow.Runtime
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public static class UIFlowUtility
     {
-        private static readonly UIManagerFactory m_Factory = new UIManagerFactory();
+        private static readonly UIManagerFactory m_Factory = new();
         
         internal static UIManager m_InternalManager;
 
@@ -101,7 +101,7 @@ namespace UIFlow.Runtime
         /// <param name="layoutId">The layout ID of the layout where the view should be displayed.</param>
         /// <exception cref="InvalidOperationException">Thrown when the layout with the specified layout ID doesn't exist.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ShowView([NotNull] BaseLayoutContentViewModel viewModel, [NotNull] Type viewType, in UILayoutId layoutId)
+        public static void ShowView([NotNull]BaseLayoutContentViewModel viewModel, [NotNull] Type viewType, in UILayoutId layoutId)
         {
             var layout = m_InternalManager.FindLayout(layoutId);
 #if (UNITY_EDITOR || DEVELOPMENT_BUILD)
@@ -122,6 +122,94 @@ namespace UIFlow.Runtime
 #endif
                 
             layout.ShowContent(viewModel);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency([NotNull]BaseLayoutContentViewModel viewModel, [NotNull]Type ownerType)
+        {
+            var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
+            if (!layout.IsValid)
+            {
+                Debug.LogError($"View with view model type {ownerType} not found.");
+                return;
+            }
+            
+            if(!layout.ViewModel.TryGet(ownerType, out var ownerViewModel))
+                return;
+            
+            layout.ShowContent(viewModel);
+            ownerViewModel.AddDependency(viewModel);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency([NotNull] BaseLayoutContentViewModel viewModel, [NotNull] Type viewType, [NotNull]Type ownerType)
+        {
+            var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
+            if (!layout.IsValid)
+            {
+                Debug.LogError($"View with view model type {ownerType} not found.");
+                return;
+            }
+            
+            if(!layout.ViewModel.TryGet(ownerType, out var ownerViewModel))
+                return;
+            
+            layout.ShowContent(viewModel, viewType);
+            ownerViewModel.AddDependency(viewModel);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency<TV>([NotNull] BaseLayoutContentViewModel viewModel, [NotNull]Type ownerType) where TV : LayoutContentView
+        {
+            var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
+            if (!layout.IsValid)
+            {
+                Debug.LogError($"View with view model type {ownerType} not found.");
+                return;
+            }
+            
+            if(!layout.ViewModel.TryGet(ownerType, out var ownerViewModel))
+                return;
+            
+            layout.ShowContent(viewModel, typeof(TV));
+            ownerViewModel.AddDependency(viewModel);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency<TVm, TV>([NotNull]TVm viewModel, [NotNull]Type ownerType) 
+            where TVm : BaseLayoutContentViewModel where TV : LayoutContentView
+        {
+            var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
+            if (!layout.IsValid)
+            {
+                Debug.LogError($"View with view model type {ownerType} not found.");
+                return;
+            }
+            
+            if(!layout.ViewModel.TryGet(ownerType, out var ownerViewModel))
+                return;
+            
+            layout.ShowContent(viewModel, typeof(TV));
+            ownerViewModel.AddDependency(viewModel);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency<TOwner>([NotNull]BaseLayoutContentViewModel viewModel) where TOwner : BaseLayoutContentViewModel
+        {
+            ShowViewAsDependency(viewModel, typeof(TOwner));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency<TV, TOwner>([NotNull] BaseLayoutContentViewModel viewModel) where TV : LayoutContentView where TOwner : BaseLayoutContentViewModel
+        {
+            ShowViewAsDependency<TV>(viewModel, typeof(TOwner));
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void ShowViewAsDependency<TVm, TV, TOwner>([NotNull]TVm viewModel) 
+            where TVm : BaseLayoutContentViewModel where TV : LayoutContentView where TOwner : BaseLayoutContentViewModel
+        {
+            ShowViewAsDependency<TVm, TV>(viewModel, typeof(TOwner));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -164,7 +252,10 @@ namespace UIFlow.Runtime
         {
             var layout = m_InternalManager.FindLayoutWithContentType(contentType);
             if (!layout.IsValid)
+            {
+                Debug.LogError($"View with view model type {contentType} not found.");
                 return false;
+            }
 
             return layout.HideContent(contentType, unregisterTemplate);
         }

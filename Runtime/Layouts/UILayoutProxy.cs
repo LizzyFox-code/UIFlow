@@ -3,6 +3,7 @@ namespace UIFlow.Runtime.Layouts
     using System;
     using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
+    using UnityEngine.Pool;
     using ViewModels;
 
     [Il2CppSetOption(Option.NullChecks, false)]
@@ -10,7 +11,7 @@ namespace UIFlow.Runtime.Layouts
     [Il2CppSetOption(Option.DivideByZeroChecks, false)]
     public sealed class UILayoutProxy
     {
-        public static readonly UILayoutProxy Invalid = new UILayoutProxy(null, string.Empty);
+        public static readonly UILayoutProxy Invalid = new(null, string.Empty);
         
         internal readonly ILayoutViewModel ViewModel;
 
@@ -39,6 +40,9 @@ namespace UIFlow.Runtime.Layouts
         public void HideContent([NotNull] BaseLayoutContentViewModel item, bool unregisterTemplate = false)
         {
             ViewModel.Remove(item, unregisterTemplate);
+            
+            HideAllDependencies(item, unregisterTemplate);
+            item.Owner?.RemoveDependency(item);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -48,6 +52,10 @@ namespace UIFlow.Runtime.Layouts
                 return false;
             
             ViewModel.Remove(item, unregisterTemplate);
+            
+            HideAllDependencies(item, unregisterTemplate);
+            item.Owner?.RemoveDependency(item);
+            
             return true;
         }
 
@@ -64,6 +72,22 @@ namespace UIFlow.Runtime.Layouts
         public void UnregisterContentViewType(Type viewModelType)
         {
             ViewModel.UnregisterView(viewModelType);
+        }
+
+        private void HideAllDependencies([NotNull] BaseLayoutContentViewModel item, bool unregisterTemplate = false)
+        {
+            var dependenciesCopy = HashSetPool<BaseLayoutContentViewModel>.Get();
+            foreach (var dependency in item.Dependencies)
+            {
+                dependenciesCopy.Add(dependency);
+            }
+            
+            foreach (var dependency in dependenciesCopy)
+            {
+                HideContent(dependency, unregisterTemplate);
+            }
+            item.Dependencies.Clear();
+            HashSetPool<BaseLayoutContentViewModel>.Release(dependenciesCopy);
         }
     }
 }
