@@ -36,7 +36,7 @@ namespace UIFlow.Runtime.Layouts
             for (var i = 0; i < m_RegisteredLayouts.Length; i++)
             {
                 var layout = m_RegisteredLayouts[i];
-                if (layout.HasContent(contentType))
+                if (layout != null && layout.HasContent(contentType))
                     return layout;
             }
             

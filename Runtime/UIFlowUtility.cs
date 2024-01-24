@@ -68,15 +68,15 @@ namespace UIFlow.Runtime
         /// <typeparam name="TV">The type of the layout content view.</typeparam>
         /// <param name="viewModel">The view model to use for the view.</param>
         /// <param name="layoutId">The ID of the layout to show the view in.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the layout with the given layout ID doesn't exist.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ShowView<TVm, TV>([NotNull]TVm viewModel, in UILayoutId layoutId) where TVm : BaseLayoutContentViewModel where TV : LayoutContentView
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return;
+            }
             
             layout.Show<TVm, TV>(viewModel);
         }
@@ -85,10 +85,11 @@ namespace UIFlow.Runtime
         public static void ShowView<TV>([NotNull] BaseLayoutContentViewModel viewModel, in UILayoutId layoutId) where TV : LayoutContentView
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return;
+            }
             
             layout.ShowContent(viewModel, typeof(TV));
         }
@@ -99,15 +100,15 @@ namespace UIFlow.Runtime
         /// <param name="viewModel">The view model associated with the view to be displayed.</param>
         /// <param name="viewType">The type of the view to be displayed.</param>
         /// <param name="layoutId">The layout ID of the layout where the view should be displayed.</param>
-        /// <exception cref="InvalidOperationException">Thrown when the layout with the specified layout ID doesn't exist.</exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ShowView([NotNull]BaseLayoutContentViewModel viewModel, [NotNull] Type viewType, in UILayoutId layoutId)
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return;
+            }
             
             layout.ShowContent(viewModel, viewType);
         }
@@ -116,10 +117,11 @@ namespace UIFlow.Runtime
         public static void ShowView([NotNull]BaseLayoutContentViewModel viewModel, in UILayoutId layoutId)
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return;
+            }
                 
             layout.ShowContent(viewModel);
         }
@@ -130,7 +132,7 @@ namespace UIFlow.Runtime
             var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
             if (!layout.IsValid)
             {
-                Debug.LogError($"View with view model type {ownerType} not found.");
+                Debug.LogWarning($"View with view model type {ownerType} not found.");
                 return;
             }
             
@@ -147,7 +149,7 @@ namespace UIFlow.Runtime
             var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
             if (!layout.IsValid)
             {
-                Debug.LogError($"View with view model type {ownerType} not found.");
+                Debug.LogWarning($"View with view model type {ownerType} not found.");
                 return;
             }
             
@@ -164,7 +166,7 @@ namespace UIFlow.Runtime
             var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
             if (!layout.IsValid)
             {
-                Debug.LogError($"View with view model type {ownerType} not found.");
+                Debug.LogWarning($"View with view model type {ownerType} not found.");
                 return;
             }
             
@@ -182,7 +184,7 @@ namespace UIFlow.Runtime
             var layout = m_InternalManager.FindLayoutWithContentType(ownerType);
             if (!layout.IsValid)
             {
-                Debug.LogError($"View with view model type {ownerType} not found.");
+                Debug.LogWarning($"View with view model type {ownerType} not found.");
                 return;
             }
             
@@ -216,10 +218,11 @@ namespace UIFlow.Runtime
         public static void HideView<T>([NotNull] T viewModel, in UILayoutId layoutId, bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return;
+            }
             
             layout.HideContent(viewModel, unregisterTemplate);
         }
@@ -228,10 +231,11 @@ namespace UIFlow.Runtime
         public static bool HideView<T>(in UILayoutId layoutId, bool unregisterTemplate = false) where T : BaseLayoutContentViewModel
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"Layout with Id {layoutId} doesn't exist.");
+                return false;
+            }
             
             return layout.HideContent(typeof(T), unregisterTemplate);
         }
@@ -240,10 +244,12 @@ namespace UIFlow.Runtime
         public static bool HideView([NotNull] Type contentType, in UILayoutId layoutId, bool unregisterTemplate = false)
         {
             var layout = m_InternalManager.FindLayout(layoutId);
-#if (UNITY_EDITOR || DEVELOPMENT_BUILD)
             if(!layout.IsValid)
-                throw new InvalidOperationException($"Layout with Id {layoutId} doesn't exist.");
-#endif
+            {
+                Debug.LogWarning($"View with view model type {contentType} not found.");
+                return false;
+            }
+            
             return layout.HideContent(contentType, unregisterTemplate);
         }
 
@@ -253,7 +259,7 @@ namespace UIFlow.Runtime
             var layout = m_InternalManager.FindLayoutWithContentType(contentType);
             if (!layout.IsValid)
             {
-                Debug.LogError($"View with view model type {contentType} not found.");
+                Debug.LogWarning($"View with view model type {contentType} not found.");
                 return false;
             }
 
